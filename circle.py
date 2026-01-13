@@ -1,6 +1,6 @@
 '''
 Version 1.0.2
-Riley Kaminsky
+RK
 --------------
 1. Import libraries
 2. Get image
