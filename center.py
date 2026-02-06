@@ -42,38 +42,6 @@ while True:
     canny=cv2.Canny(blur,100,200)
 
     #apply mask
-    #1280 960 video size
-    '''
-    width = video.get(cv2.CAP_PROP_FRAME_WIDTH)
-    height  = video.get(cv2.CAP_PROP_FRAME_HEIGHT)
-
-    width = np.int32(width)
-    height = np.int32(height)
-
-    start_x=0
-    start_y=height
-
-    end_x=width
-    end_y=height
-
-    half_x=end_x//2
-    half_y=end_y//2
-
-    mask=np.zeros_like(frame)
-
-    vertices = [
-        (start_x, start_y),
-        (half_x, half_y),
-        (end_x, end_y),
-    ]
-
-    mask_color= (0,0,255)
-    cv2.fillPoly(frame, vertices, mask_color)
-    '''
-    cv2.line(frame, (start_x, start_y), (end_x, end_y), (0, 0, 255), 2)
-    cv2.line(frame, (start_x, start_y), (half_x, half_y), (0, 0, 255), 2)
-    cv2.line(frame, (end_x, end_y), (half_x, half_y), (0, 0, 255), 2)
-
     width = video.get(cv2.CAP_PROP_FRAME_WIDTH)
     height  = video.get(cv2.CAP_PROP_FRAME_HEIGHT)
 
@@ -97,10 +65,15 @@ while True:
     if lines is not None:
         for line in lines:
             x1, y1, x2, y2 = line[0]
-            cv2.line(frame, (x1, y1), (x2, y2), (0, 255, 0), 2) # (where, start_point, end_point, color, thickness)
-
-    #display the frame
-    cv2.imshow('Video Player', frame)
+            cv2.line(frame, (x1+start_x, y1+start_y), (x2+start_x, y2+start_y), (0, 255, 0),2)
+            '''
+            cx1= ((x1+start_x)+(x2+start_x))/2
+            cy1= ((y1+start_y)+(y2+start_y))/2
+            cv2.line(frame, (cx1, cy1), (500, 600), (255, 0, 0), 2)
+            '''
+ 
+    #display the original frame
+    cv2.imshow('', frame)
 
     #end video if x is pressed
     if cv2.waitKey(25) & 0xFF == ord('x'):
@@ -109,5 +82,7 @@ while True:
 #end video
 video.release()
 cv2.destroyAllWindows()
+
+#end of code :D 
 
 
